@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NoticiasService } from '../services/noticias.service';
 
 @Component({
   selector: 'app-tab1',
@@ -7,6 +8,19 @@ import { Component } from '@angular/core';
 })
 export class Tab1Page {
 
-  constructor() {}
+  noticias : any = []
+  
+  constructor(
+    private noticiasService: NoticiasService
+  ) {
+    this.listarNoticias()
+  }
+  
+  listarNoticias() {
+    this.noticiasService.noticias().subscribe(resp => {
+      console.log('noticias traidas', resp['articles']);
+      this.noticias = resp['articles'];
+    })
+  }
 
 }
